@@ -243,6 +243,7 @@ while True:
 
             if email_existente == True:
                 print("\n\033[31mEste email já está cadastrado! Tente com um email diferente.\033[m")
+                print()
             else:
                 cadastro = {'nome': nome, 'e-mail': email, 'senha': senha}
                 lista_cadastro.append(cadastro)
@@ -252,6 +253,7 @@ while True:
                 json.dump(lista_cadastro, arquivo, indent=4, ensure_ascii=False)
         except IOError:
             print("\n\033[31mErro ao salvar o cadastro. Por favor, tente novamente.\033[m")
+            print()
 
     elif escolha_menu1 == 2:
         current_time = datetime.now()
