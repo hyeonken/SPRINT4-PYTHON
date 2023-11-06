@@ -35,7 +35,7 @@ def menu_aquatank2():
             print('----------------------------------------------')
             print('                  \033[34mAquatank\033[m                ')
             print('----------------------------------------------\n')
-            print('1 - Ver a última atualização do Arduino')
+            print('1 - Conferir os últimos componentes da Aquatank')
             print('2 - Ver dashboard')
             print('3 - Suporte especializado')
             print('4 - Mostrar todas as operações realizadas')
@@ -47,7 +47,7 @@ def menu_aquatank2():
         
             match escolha_menu2:
                 case 1: 
-                    print("última atualização dos componentes eletrônicos da Aquatank:") 
+                    print("Últimos componentes da Aquatank:") 
                     print("                    --                      ") 
                     print("Placa DOIT ESP32 (Bluetooth e Wifi)")
                     print("Sensor Nivel Lateral Água Arduino - Tipo Boia")
@@ -55,7 +55,7 @@ def menu_aquatank2():
                     print("Sensor de Qualidade do Ar - C02 e TVOC")
                     print("Sensor de Temperatura e Umidade - DHT11")
                     print("                    --                      \n")
-                    lista.append('Ver a última atualização do Arduino')
+                    lista.append('Olhar últimos componentes da Aquatank')
                 case 2:
                     print("Dashboard com os últimos valores dos sensores:")
         
