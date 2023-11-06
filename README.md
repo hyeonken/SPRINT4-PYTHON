@@ -14,7 +14,7 @@ Inscreva-se em nosso formulário para conhecer a iniciativa antes de todos 🚀
 Melhora na área de cadastro e de login (mais funcionalidades e implementação do arquivo json);
 Visualização do Dashboard com o arquivo json;
 Mostrar a última atualização do arduino (atualizada);
-Inclusão de um suporte especializado;
+Inclusão de um suporte especializado(dúvidas armazenadas em arquivo json);
 Opção de ver todas as ações do usuário percorrendo o menu e dando a ele a escolha de finalizar o programa ou continuar acessando o menu;
 Foi inserido dentro de ambos menus uma opção de encerrar o programa.
 
