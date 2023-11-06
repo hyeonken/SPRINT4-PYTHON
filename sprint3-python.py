@@ -1,9 +1,13 @@
+import datetime
+import time
+import json
+import os
+
+
 lista = []
 cadastro_feito = 0
 login_feito = 0
 dicionario = {}
-import datetime
-import time
 
 def menu_aquatank1():
     if cadastro_feito == 0 or login_feito == 0:
@@ -28,9 +32,10 @@ def menu_aquatank2():
             print('                  \033[34mAquatank\033[m                ')
             print('----------------------------------------------\n')
             print('1 - Ver a última atualização do Arduino')
-            print('2 - Suporte especializado')
-            print('3 - Mostrar todas as operações realizadas')
-            print('4 - Encerrar o programa\n')
+            print('2 - Ver dashboard')
+            print('3 - Suporte especializado')
+            print('4 - Mostrar todas as operações realizadas')
+            print('5 - Encerrar o programa\n')
             print('----------------------------------------------\n')
 
             escolha_menu2 = int(input("Escolha uma dessas duas opções: "))
@@ -51,6 +56,11 @@ def menu_aquatank2():
                     print("                    --                      \n")
                     lista.append('Ver a última atualização do Arduino')
                 case 2:
+                    print("Dashboard com todos os dados da operação:")
+                    print("Nível de água, temperatura, CO2, luminosidade, nível de luz.")
+                    with open('dasboard.json') as arquivo:
+                    lista.append('Ver dashboard')
+                case 3:
                     alguma_duvida = input("Você tem alguma dúvida sobre o Aquatank? (sim/não): ").lower()
                     print()
                     if   alguma_duvida == "sim" or alguma_duvida == "s":
@@ -73,7 +83,7 @@ def menu_aquatank2():
                      
                     else:  
                         lista.append("Suporte especializado - Não teve nenhuma dúvida")  
-                case 3: 
+                case 4: 
                     print()
                     resposta = input("Deseja ver o resumo de operações realizadas do menu? (sim/não): ").lower()
                     print()
@@ -92,7 +102,7 @@ def menu_aquatank2():
                         return True
                     else:
                         lista.append("Mostrar todas as operações realizadas")        
-                case 4:
+                case 5:
                     return True
                 case _:
                     print("\033[31mError!! Número inválido!\033[m \n")
