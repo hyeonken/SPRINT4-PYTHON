@@ -1,6 +1,7 @@
 from datetime import datetime
 import time
 import json
+import os
 
 lista = []
 lista_cadastro = []
@@ -28,7 +29,18 @@ def menu_aquatank1():
         except ValueError:
             print("\033[31mDigite um número inteiro!\033[m\n")   
         return escolha_menu1
- 
+    
+def validar_email(email):
+    if "@" in email and "." in email:
+        return True
+    return False
+
+# Função para validar a senha
+def validar_senha(senha):
+    if len(senha) >= 8:
+        return True
+    return False
+
 def menu_aquatank2():
     while True:
         try:
@@ -37,15 +49,15 @@ def menu_aquatank2():
             print('----------------------------------------------\n')
             print('1 - Ver a última atualização do Arduino')
             print('2 - Ver dashboard')
-            print('3 - Suporte especializado')
+            print('3 - Suporte especializado - dúvidas e perguntas')
             print('4 - Mostrar todas as operações realizadas')
             print('5 - Encerrar o programa\n')
             print('----------------------------------------------\n')
 
-            escolha_menu2 = int(input("Escolha uma dessas duas opções: "))
+            escolha_menu2 = input("Escolha uma dessas duas opções: ")
             print()
         
-            match escolha_menu2:
+            match int(escolha_menu2):
                 case 1: 
                     print("última atualização dos componentes eletrônicos da Aquatank:") 
                     print("                    --                      ") 
@@ -144,28 +156,41 @@ def menu_aquatank2():
                                 print()
                         lista.append('Ver dashboard')
                 case 3:
-                    alguma_duvida = input("Você tem alguma dúvida sobre o Aquatank? (sim/não): ").lower()
-                    print()
-                    if   alguma_duvida == "sim" or alguma_duvida == "s":
-                        for i in range(5):
-                            i = "."
-                            print(i)
-
-                        num = int(input("Digite a quantidade de dúvidas: "))
+                    if os.path.exists('duvidas.json'):
+                        with open('duvidas.json', 'r', encoding='utf-8') as arquivoduvidas:
+                            duvidas_existente = json.load(arquivoduvidas)
+                    else:
+                        duvidas_existente = []
+                    for i in range(5):
+                        i = "."
+                        print(i)
+                    num = None
+                    while num is None:
+                        try:
+                            num = int(input("Digite a quantidade de dúvidas: "))
+                            if num < 1:
+                                print("Por favor, insira um número positivo.")
+                                num = None
+                        except ValueError:
+                            print("Digite um número inteiro válido.")
                         print()
                         contador = 0
                         while contador < num:
                             duvida = input(f"Escreva sua {contador + 1}ª dúvida ao lado: ")
+                            print()
                             print(f"{duvida}\n")
                             contador += 1
-                            dicionario[contador] = duvida 
-                            print(dicionario)
-                            
-                        print("\nAgradecemos pelas dúvidas. Ela será analisada e retornada em breve no seu e-mail...\n")
+                            duivida_input = {f'Duvida {contador}': duvida}
+
+                            duvidas_existente.append(duivida_input)
+                            with open('duvidas.json', 'w', encoding='utf-8') as arquivoduvidas:
+                                json.dump(duvidas_existente, arquivoduvidas, indent=4, ensure_ascii=False)
+                        
+                        print("\nAgradecemos pelas dúvidas. Elas serão analisadas e retornadas em breve no seu e-mail...\n")
                         lista.append("Suporte especializado - Teve dúvida")
-                     
-                    else:  
-                        lista.append("Suporte especializado - Não teve nenhuma dúvida")  
+
+                    else:
+                        lista.append("Suporte especializado - Não teve nenhuma dúvida")
                 case 4: 
                     print()
                     resposta = input("Deseja ver o resumo de operações realizadas do menu? (sim/não): ").lower()
@@ -192,16 +217,6 @@ def menu_aquatank2():
         except ValueError:
             print("\033[31mDigite um número inteiro!\033[m\n")                
 
-def validar_email(email):
-    if "@" in email and "." in email:
-        return True
-    return False
-
-# Função para validar a senha
-def validar_senha(senha):
-    if len(senha) >= 8:
-        return True
-    return False
 
 nome = ""
 email_valido = False
