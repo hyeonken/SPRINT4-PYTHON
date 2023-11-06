@@ -57,6 +57,7 @@ def menu_aquatank2():
                     print("Dashboard com todos os dados da operação:")
                     print("Nível de água, temperatura, CO2, luminosidade, nível de luz.")
                     with open('dasboard.json') as arquivo:
+                        meme = json.load(arquivo)
                     lista.append('Ver dashboard')
                 case 3:
                     alguma_duvida = input("Você tem alguma dúvida sobre o Aquatank? (sim/não): ").lower()

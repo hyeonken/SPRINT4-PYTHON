@@ -1,0 +1,245 @@
+[
+    {
+        "name": "temperature",
+        "values": [
+            {
+                "_id": "65482fd5407de7000734d86c",
+                "recvTime": "2023-11-06T00:14:13.176Z",
+                "attrName": "temperature",
+                "attrType": "Float",
+                "attrValue": 25
+            },
+            {
+                "_id": "65482fdb407de7000734d871",
+                "recvTime": "2023-11-06T00:14:19.316Z",
+                "attrName": "temperature",
+                "attrType": "Float",
+                "attrValue": 25
+            },
+            {
+                "_id": "65482fe1407de7000734d877",
+                "recvTime": "2023-11-06T00:14:25.254Z",
+                "attrName": "temperature",
+                "attrType": "Float",
+                "attrValue": 25
+            },
+            {
+                "_id": "65482fe7407de7000734d87c",
+                "recvTime": "2023-11-06T00:14:31.302Z",
+                "attrName": "temperature",
+                "attrType": "Float",
+                "attrValue": 25
+            },
+            {
+                "_id": "65482fed407de7000734d884",
+                "recvTime": "2023-11-06T00:14:37.393Z",
+                "attrName": "temperature",
+                "attrType": "Float",
+                "attrValue": 25
+            }
+        ]
+    },
+
+    {
+        "name": "boia",
+        "values": [
+            {
+                "_id": "65482fd5407de7000734d86e",
+                "recvTime": "2023-11-06T00:14:13.182Z",
+                "attrName": "boia",
+                "attrType": "Int",
+                "attrValue": 0
+            },
+            {
+                "_id": "65482fdb407de7000734d874",
+                "recvTime": "2023-11-06T00:14:19.321Z",
+                "attrName": "boia",
+                "attrType": "Int",
+                "attrValue": 0
+            },
+            {
+                "_id": "65482fe1407de7000734d878",
+                "recvTime": "2023-11-06T00:14:25.258Z",
+                "attrName": "boia",
+                "attrType": "Int",
+                "attrValue": 0
+            },
+            {
+                "_id": "65482fe7407de7000734d880",
+                "recvTime": "2023-11-06T00:14:31.309Z",
+                "attrName": "boia",
+                "attrType": "Int",
+                "attrValue": 0
+            },
+            {
+                "_id": "65482fed407de7000734d882",
+                "recvTime": "2023-11-06T00:14:37.380Z",
+                "attrName": "boia",
+                "attrType": "Int",
+                "attrValue": 0
+            }
+        ]
+    },
+
+    {
+        "name": "codois",
+        "values": [
+            {
+                "_id": "65482fd5407de7000734d869",
+                "recvTime": "2023-11-06T00:14:13.171Z",
+                "attrName": "codois",
+                "attrType": "Float",
+                "attrValue": 445
+            },
+            {
+                "_id": "65482fda407de7000734d86f",
+                "recvTime": "2023-11-06T00:14:18.975Z",
+                "attrName": "codois",
+                "attrType": "Float",
+                "attrValue": 435
+            },
+            {
+                "_id": "65482fe1407de7000734d875",
+                "recvTime": "2023-11-06T00:14:25.005Z",
+                "attrName": "codois",
+                "attrType": "Float",
+                "attrValue": 400
+            },
+            {
+                "_id": "65482fe7407de7000734d87b",
+                "recvTime": "2023-11-06T00:14:31.033Z",
+                "attrName": "codois",
+                "attrType": "Float",
+                "attrValue": 400
+            },
+            {
+                "_id": "65482fed407de7000734d881",
+                "recvTime": "2023-11-06T00:14:37.369Z",
+                "attrName": "codois",
+                "attrType": "Float",
+                "attrValue": 400
+            }
+        ]
+    },
+
+    {
+        "name": "tvoc",
+        "values": [
+            {
+                "_id": "65482fd5407de7000734d86a",
+                "recvTime": "2023-11-06T00:14:13.174Z",
+                "attrName": "tvoc",
+                "attrType": "Float",
+                "attrValue": 6
+            },
+            {
+                "_id": "65482fdb407de7000734d870",
+                "recvTime": "2023-11-06T00:14:19.315Z",
+                "attrName": "tvoc",
+                "attrType": "Float",
+                "attrValue": 5
+            },
+            {
+                "_id": "65482fe1407de7000734d876",
+                "recvTime": "2023-11-06T00:14:25.252Z",
+                "attrName": "tvoc",
+                "attrType": "Float",
+                "attrValue": 0
+            },
+            {
+                "_id": "65482fe7407de7000734d87f",
+                "recvTime": "2023-11-06T00:14:31.307Z",
+                "attrName": "tvoc",
+                "attrType": "Float",
+                "attrValue": 0
+            },
+            {
+                "_id": "65482fed407de7000734d883",
+                "recvTime": "2023-11-06T00:14:37.387Z",
+                "attrName": "tvoc",
+                "attrType": "Float",
+                "attrValue": 0
+            }
+        ]
+    },
+    {
+        "name": "humidity",
+        "values": [
+            {
+                "_id": "65482fd5407de7000734d86b",
+                "recvTime": "2023-11-06T00:14:13.178Z",
+                "attrName": "humidity",
+                "attrType": "Float",
+                "attrValue": 41
+            },
+            {
+                "_id": "65482fdb407de7000734d873",
+                "recvTime": "2023-11-06T00:14:19.319Z",
+                "attrName": "humidity",
+                "attrType": "Float",
+                "attrValue": 41
+            },
+            {
+                "_id": "65482fe1407de7000734d879",
+                "recvTime": "2023-11-06T00:14:25.256Z",
+                "attrName": "humidity",
+                "attrType": "Float",
+                "attrValue": 41
+            },
+            {
+                "_id": "65482fe7407de7000734d87e",
+                "recvTime": "2023-11-06T00:14:31.303Z",
+                "attrName": "humidity",
+                "attrType": "Float",
+                "attrValue": 41
+            },
+            {
+                "_id": "65482fed407de7000734d885",
+                "recvTime": "2023-11-06T00:14:37.397Z",
+                "attrName": "humidity",
+                "attrType": "Float",
+                "attrValue": 41
+            }
+        ]
+    },
+    {
+        "name": "luminosity",
+        "values": [
+            {
+                "_id": "65482fd5407de7000734d86d",
+                "recvTime": "2023-11-06T00:14:13.180Z",
+                "attrName": "luminosity",
+                "attrType": "Float",
+                "attrValue": 48
+            },
+            {
+                "_id": "65482fdb407de7000734d872",
+                "recvTime": "2023-11-06T00:14:19.323Z",
+                "attrName": "luminosity",
+                "attrType": "Float",
+                "attrValue": 48
+            },
+            {
+                "_id": "65482fe1407de7000734d87a",
+                "recvTime": "2023-11-06T00:14:25.259Z",
+                "attrName": "luminosity",
+                "attrType": "Float",
+                "attrValue": 48
+            },
+            {
+                "_id": "65482fe7407de7000734d87d",
+                "recvTime": "2023-11-06T00:14:31.305Z",
+                "attrName": "luminosity",
+                "attrType": "Float",
+                "attrValue": 48
+            },
+            {
+                "_id": "65482fed407de7000734d886",
+                "recvTime": "2023-11-06T00:14:37.404Z",
+                "attrName": "luminosity",
+                "attrType": "Float",
+                "attrValue": 49
+            }
+        ]
+    }
+]
