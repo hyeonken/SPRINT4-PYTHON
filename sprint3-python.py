@@ -1,4 +1,5 @@
-import datetime
+from datetime import datetime
+# import datetime
 import time
 import json
 import os
@@ -8,6 +9,11 @@ lista = []
 cadastro_feito = 0
 login_feito = 0
 dicionario = {}
+
+def formatar_data_hora(recv_time):
+    # Converte o formato de tempo do JSON para o formato desejado
+    data_hora = datetime.strptime(recv_time, "%Y-%m-%dT%H:%M:%S.%fZ")
+    return data_hora.strftime("%d/%m/%Y, %H:%M:%S")
 
 def menu_aquatank1():
     if cadastro_feito == 0 or login_feito == 0:
@@ -54,13 +60,40 @@ def menu_aquatank2():
                     print("                    --                      \n")
                     lista.append('Ver a última atualização do Arduino')
                 case 2:
-                    print("Dashboard com todos os dados da operação:")
-                    print("Nível de água, temperatura, CO2, luminosidade, nível de luz.")
+                    print("Dashboard com os últimos valores dos sensores:")
+        
                     with open('dashboard.json', 'r', encoding='utf-8') as arquivo:
                         dados = json.load(arquivo)
-                        for linhas in dados:
-                            print(linhas)
-                    lista.append('Ver dashboard')
+                        
+                        for sensor_data in dados:
+                            sensor_name = sensor_data['name']
+                            sensor_values = sensor_data['values']
+
+                            if sensor_name == 'temperature':
+                                sensor_display_nome = "temperatura"
+                            elif sensor_name == 'boia':
+                                sensor_display_nome = "boia"
+                            elif sensor_name == 'codois':
+                                sensor_display_nome = "codois"
+                            elif sensor_name == 'tvoc':
+                                sensor_display_nome = "TVOC"
+                            elif sensor_name == 'humidity':
+                                sensor_display_nome = "umidade"
+                            elif sensor_name == 'luminosity':
+                                sensor_display_nome = "luminosidade"
+                            else:
+                                sensor_display_nome = sensor_name
+                                
+                            print()
+                            print(f"Últimas 5 leituras de {sensor_display_nome}:")
+                            print()
+
+                            for chave in sensor_values[-5:]:
+                                attr_value = chave['attrValue']
+                                recv_time = chave['recvTime']
+                                formatted_time = datetime.strptime(recv_time, "%Y-%m-%dT%H:%M:%S.%fZ").strftime("%d/%m/%Y, %H:%M:%S")
+                                print(f"{attr_value} - {formatted_time}")
+                        lista.append('Ver dashboard')
                 case 3:
                     alguma_duvida = input("Você tem alguma dúvida sobre o Aquatank? (sim/não): ").lower()
                     print()
@@ -125,7 +158,7 @@ while True:
     escolha_menu1 = menu_aquatank1() 
 
     if escolha_menu1 == 1:
-        current_time = datetime.datetime.now()
+        current_time = datetime.now()
         print("Hora atual:", current_time.strftime("%H:%M:%S"))
         time.sleep(1)
 
@@ -176,7 +209,7 @@ while True:
             #     print("\033[31mTente outra vez mais tarde!\033[m\n")  
 
     elif escolha_menu1 == 2:
-        current_time = datetime.datetime.now()
+        current_time = datetime.now()
         print("Hora atual:", current_time.strftime("%H:%M:%S"))
         time.sleep(1)
         email_valido = False
