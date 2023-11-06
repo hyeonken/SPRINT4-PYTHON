@@ -57,39 +57,91 @@ def menu_aquatank2():
                     print("                    --                      \n")
                     lista.append('Olhar últimos componentes da Aquatank')
                 case 2:
-                    print("Dashboard com os últimos valores dos sensores:")
-        
+                    print('----------------------------------------------')
+                    print('                  \033[34mAquatank\033[m                ')
+                    print('----------------------------------------------\n')
+                    print("Escolha o sensor que deseja visualizar:")
+                    print()
+                    print("1 - Temperatura")
+                    print("2 - Boia")
+                    print("3 - Codois")
+                    print("4 - TVOC")
+                    print("5 - Umidade")
+                    print("6 - Luminosidade")
+                    print()
+                    try:
+                        escolha_sensor = int(input("Escolha o sensor (1-6): "))
+                        quantidade_leituras = int(input("Digite a quantidade de leituras desejada (max: 50): "))
+                    except ValueError:
+                        print()
+                        print("Opção inválida. Por favor, insira um número válido.")
+                        print()
+                        continue
+                    
+                    if escolha_sensor < 1 or escolha_sensor > 6:
+                        print()
+                        print("Sensor inválido. Por favor, escolha uma opção de sensor válida.")
+                        print()
+                        continue
+                    
+                    if quantidade_leituras > 50:
+                        print()
+                        print("A quantidade de leituras não pode ser maior que 50.")
+                        print()
+                        continue
+                    
                     with open('dashboard.json', 'r', encoding='utf-8') as arquivo:
                         dados = json.load(arquivo)
                         
                         for sensor_data in dados:
                             sensor_name = sensor_data['name']
                             sensor_values = sensor_data['values']
+                            
+                            if escolha_sensor == 1 and sensor_name != 'temperature':
+                                continue
+                            elif escolha_sensor == 2 and sensor_name != 'boia':
+                                continue
+                            elif escolha_sensor == 3 and sensor_name != 'codois':
+                                continue
+                            elif escolha_sensor == 4 and sensor_name != 'tvoc':
+                                continue
+                            elif escolha_sensor == 5 and sensor_name != 'humidity':
+                                continue
+                            elif escolha_sensor == 6 and sensor_name != 'luminosity':
+                                continue
 
+                            sensor_nome_dash = sensor_name
+                            unidade_sensor = ""
+                            
                             if sensor_name == 'temperature':
-                                sensor_display_nome = "temperatura"
+                                sensor_nome_dash = "Temperatura"
+                                unidade_sensor = "°C"
                             elif sensor_name == 'boia':
-                                sensor_display_nome = "boia"
+                                sensor_nome_dash = "Boia"
+                                unidade_sensor = ""
                             elif sensor_name == 'codois':
-                                sensor_display_nome = "codois"
+                                sensor_nome_dash = "Co2"
+                                unidade_sensor = "ppm"
                             elif sensor_name == 'tvoc':
-                                sensor_display_nome = "TVOC"
+                                sensor_nome_dash = "Tvoc"
+                                unidade_sensor = "µg/m³"
                             elif sensor_name == 'humidity':
-                                sensor_display_nome = "umidade"
+                                sensor_nome_dash = "Umidade"
+                                unidade_sensor = "%"
                             elif sensor_name == 'luminosity':
-                                sensor_display_nome = "luminosidade"
-                            else:
-                                sensor_display_nome = sensor_name
-                                
-                            print()
-                            print(f"Últimas 5 leituras de {sensor_display_nome}:")
-                            print()
+                                sensor_nome_dash = "Luminosidade"
+                                unidade_sensor = "%"
 
-                            for chave in sensor_values[-5:]:
-                                attr_value = chave['attrValue']
-                                recv_time = chave['recvTime']
-                                formatted_time = datetime.strptime(recv_time, "%Y-%m-%dT%H:%M:%S.%fZ").strftime("%d/%m/%Y, %H:%M:%S")
-                                print(f"{attr_value} - {formatted_time}")
+                            print()
+                            print(f"\033[34mÚltimas {quantidade_leituras} leituras de {sensor_nome_dash}:\033[m")
+                            print()
+                            
+                            for value in sensor_values[-quantidade_leituras:]:
+                                valores = value['attrValue']
+                                data_hora = value['recvTime']
+                                data_hora_formatados = datetime.strptime(data_hora, "%Y-%m-%dT%H:%M:%S.%fZ").strftime("%d/%m/%Y, %H:%M:%S")
+                                print(f"{valores} {unidade_sensor} - {data_hora_formatados}")
+                                print()
                         lista.append('Ver dashboard')
                 case 3:
                     alguma_duvida = input("Você tem alguma dúvida sobre o Aquatank? (sim/não): ").lower()
@@ -183,21 +235,23 @@ while True:
                     print("\033[31mSenha inválida! A senha deve ter pelo menos 8 caracteres.\033[m\n")
 
         email_existente = False
-        for cadastro_existente in lista_cadastro:
-            if cadastro_existente['e-mail'] == email:
-                email_existente = True
+        with open('cadastro.json', 'r', encoding='utf-8') as arquivo:
+            lista_cadastro = json.load(arquivo)
+            for cadastro_existente in lista_cadastro:
+                if cadastro_existente['e-mail'] == email:
+                    email_existente = True
 
-        if email_existente:
-            print("\n\033[31mEste email já está cadastrado! Tente com um email diferente.\033[m")
-        else:
-            cadastro = {'nome': nome, 'e-mail': email, 'senha': senha}
-            lista.append(cadastro)
+            if email_existente == True:
+                print("\n\033[31mEste email já está cadastrado! Tente com um email diferente.\033[m")
+            else:
+                cadastro = {'nome': nome, 'e-mail': email, 'senha': senha}
+                lista_cadastro.append(cadastro)
 
-            try:
-                with open('cadastro.json', 'w', encoding='utf-8') as arquivo:
-                    json.dump(lista, arquivo, indent=4, ensure_ascii=False)
-            except IOError:
-                print("\n\033[31mErro ao salvar o cadastro. Por favor, tente novamente.\033[m")
+        try:
+            with open('cadastro.json', 'w', encoding='utf-8') as arquivo:
+                json.dump(lista_cadastro, arquivo, indent=4, ensure_ascii=False)
+        except IOError:
+            print("\n\033[31mErro ao salvar o cadastro. Por favor, tente novamente.\033[m")
 
     elif escolha_menu1 == 2:
         current_time = datetime.now()
