@@ -58,42 +58,69 @@ def menu_aquatank2():
                     print("                    --                      \n")
                     lista.append('Ver a última atualização do Arduino')
                 case 2:
-                    print("Dashboard com os últimos valores dos sensores:")
-                    
+                    print('----------------------------------------------')
+                    print('                  \033[34mAquatank\033[m                ')
+                    print('----------------------------------------------\n')
+                    print("Escolha o sensor que deseja visualizar:")
+                    print()
+                    print("1 - Temperatura")
+                    print("2 - Boia")
+                    print("3 - Codois")
+                    print("4 - TVOC")
+                    print("5 - Umidade")
+                    print("6 - Luminosidade")
+                    print()
+                    escolha_sensor = int(input("Escolha o sensor (1-6): "))
+
+                    quantidade_leituras = int(input("Digite a quantidade de leituras desejada (max: 50): "))
+
                     with open('dashboard.json', 'r', encoding='utf-8') as arquivo:
                         dados = json.load(arquivo)
                         
                         for sensor_data in dados:
                             sensor_name = sensor_data['name']
                             sensor_values = sensor_data['values']
+                            
+                            if escolha_sensor == 1 and sensor_name != 'temperature':
+                                continue
+                            elif escolha_sensor == 2 and sensor_name != 'boia':
+                                continue
+                            elif escolha_sensor == 3 and sensor_name != 'codois':
+                                continue
+                            elif escolha_sensor == 4 and sensor_name != 'tvoc':
+                                continue
+                            elif escolha_sensor == 5 and sensor_name != 'humidity':
+                                continue
+                            elif escolha_sensor == 6 and sensor_name != 'luminosity':
+                                continue
 
+                            sensor_nome_dash = sensor_name
+                            unidade_sensor = ""
+                            
                             if sensor_name == 'temperature':
-                                sensor_nome_dash = "temperatura"
+                                sensor_nome_dash = "Temperatura"
                                 unidade_sensor = "°C"
                             elif sensor_name == 'boia':
-                                sensor_nome_dash = "boia"
+                                sensor_nome_dash = "Boia"
                                 unidade_sensor = ""
                             elif sensor_name == 'codois':
-                                sensor_nome_dash = "codois"
+                                sensor_nome_dash = "Co2"
                                 unidade_sensor = "ppm"
                             elif sensor_name == 'tvoc':
-                                sensor_nome_dash = "TVOC"
+                                sensor_nome_dash = "Tvoc"
                                 unidade_sensor = "µg/m³"
                             elif sensor_name == 'humidity':
-                                sensor_nome_dash = "umidade"
+                                sensor_nome_dash = "Umidade"
                                 unidade_sensor = "%"
                             elif sensor_name == 'luminosity':
-                                sensor_nome_dash = "luminosidade"
+                                sensor_nome_dash = "Luminosidade"
                                 unidade_sensor = "%"
-                            else:
-                                sensor_nome_dash = sensor_name
-                                unidade_sensor = ""
 
                             print()
-                            print(f"Últimas 5 leituras de {sensor_nome_dash}:")
+                            print(f"Últimas {quantidade_leituras} leituras de {sensor_nome_dash}:")
                             print()
                             
-                            for value in sensor_values[-5:]:
+                            for value in sensor_values[-quantidade_leituras:]:
                                 valores = value['attrValue']
                                 data_hora = value['recvTime']
                                 data_hora_formatados = datetime.strptime(data_hora, "%Y-%m-%dT%H:%M:%S.%fZ").strftime("%d/%m/%Y, %H:%M:%S")
