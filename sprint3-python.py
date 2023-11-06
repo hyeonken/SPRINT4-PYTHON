@@ -1,10 +1,10 @@
 from datetime import datetime
-# import datetime
 import time
 import json
-import os
+
 
 lista = []
+lista_cadastro = []
 cadastro_feito = 0
 login_feito = 0
 dicionario = {}
@@ -185,7 +185,7 @@ while True:
                     print("\033[31mSenha inválida! A senha deve ter pelo menos 8 caracteres.\033[m\n")
 
         email_existente = False
-        for cadastro_existente in lista:
+        for cadastro_existente in lista_cadastro:
             if cadastro_existente['e-mail'] == email:
                 email_existente = True
 
@@ -221,7 +221,6 @@ while True:
             elif not senha_valida:    
                 print("\n\033[31mSenha inválida! Tente novamente!\033[m\n")
 
-        #Chamar para ele voltar para cá.
         if'@' in email and len(senha)>=8:
             print("\nVerificando sua conta...")
             for i in range(5):
