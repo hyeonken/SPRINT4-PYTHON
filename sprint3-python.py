@@ -2,7 +2,6 @@ from datetime import datetime
 import time
 import json
 
-
 lista = []
 lista_cadastro = []
 cadastro_feito = 0
@@ -33,7 +32,6 @@ def menu_aquatank1():
 def menu_aquatank2():
     while True:
         try:
-            #Adicionar a API.json para mandar os dados dos sensores.
             print('----------------------------------------------')
             print('                  \033[34mAquatank\033[m                ')
             print('----------------------------------------------\n')
