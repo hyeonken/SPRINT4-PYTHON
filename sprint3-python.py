@@ -1,11 +1,13 @@
+import datetime
+import time
+import json
+import os
+
+
 lista = []
 cadastro_feito = 0
 login_feito = 0
 dicionario = {}
-import datetime
-import time
-import os
-import json
 
 def menu_aquatank1():
     if cadastro_feito == 0 or login_feito == 0:
