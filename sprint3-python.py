@@ -1,5 +1,4 @@
 from datetime import datetime
-# import datetime
 import time
 import json
 import os
@@ -60,7 +59,7 @@ def menu_aquatank2():
                     lista.append('Ver a última atualização do Arduino')
                 case 2:
                     print("Dashboard com os últimos valores dos sensores:")
-        
+                    
                     with open('dashboard.json', 'r', encoding='utf-8') as arquivo:
                         dados = json.load(arquivo)
                         
@@ -69,29 +68,37 @@ def menu_aquatank2():
                             sensor_values = sensor_data['values']
 
                             if sensor_name == 'temperature':
-                                sensor_display_nome = "temperatura"
+                                sensor_nome_dash = "temperatura"
+                                unidade_sensor = "°C"
                             elif sensor_name == 'boia':
-                                sensor_display_nome = "boia"
+                                sensor_nome_dash = "boia"
+                                unidade_sensor = ""
                             elif sensor_name == 'codois':
-                                sensor_display_nome = "codois"
+                                sensor_nome_dash = "codois"
+                                unidade_sensor = "ppm"
                             elif sensor_name == 'tvoc':
-                                sensor_display_nome = "TVOC"
+                                sensor_nome_dash = "TVOC"
+                                unidade_sensor = "µg/m³"
                             elif sensor_name == 'humidity':
-                                sensor_display_nome = "umidade"
+                                sensor_nome_dash = "umidade"
+                                unidade_sensor = "%"
                             elif sensor_name == 'luminosity':
-                                sensor_display_nome = "luminosidade"
+                                sensor_nome_dash = "luminosidade"
+                                unidade_sensor = "%"
                             else:
-                                sensor_display_nome = sensor_name
-                                
-                            print()
-                            print(f"Últimas 5 leituras de {sensor_display_nome}:")
-                            print()
+                                sensor_nome_dash = sensor_name
+                                unidade_sensor = ""
 
-                            for chave in sensor_values[-5:]:
-                                attr_value = chave['attrValue']
-                                recv_time = chave['recvTime']
-                                formatted_time = datetime.strptime(recv_time, "%Y-%m-%dT%H:%M:%S.%fZ").strftime("%d/%m/%Y, %H:%M:%S")
-                                print(f"{attr_value} - {formatted_time}")
+                            print()
+                            print(f"Últimas 5 leituras de {sensor_nome_dash}:")
+                            print()
+                            
+                            for value in sensor_values[-5:]:
+                                valores = value['attrValue']
+                                data_hora = value['recvTime']
+                                data_hora_formatados = datetime.strptime(data_hora, "%Y-%m-%dT%H:%M:%S.%fZ").strftime("%d/%m/%Y, %H:%M:%S")
+                                print(f"{valores} {unidade_sensor} - {data_hora_formatados}")
+                                print()
                         lista.append('Ver dashboard')
                 case 3:
                     alguma_duvida = input("Você tem alguma dúvida sobre o Aquatank? (sim/não): ").lower()
