@@ -4,14 +4,16 @@ login_feito = 0
 dicionario = {}
 import datetime
 import time
+import os
+import json
 
 def menu_aquatank1():
     if cadastro_feito == 0 or login_feito == 0:
         print('----------------------------------------------')
         print('                  \033[34mAquatank\033[m                ')
         print('----------------------------------------------\n')
-        print('1 - Cadastro no site da Aquatank')
-        print('2 - Login no site da Aquatank')
+        print('1 - Cadastro no site da Aquatank') #Mexer
+        print('2 - Login no site da Aquatank') #Mexer (opcional)
         print('3 - Encerrar o programa\n')
         print('----------------------------------------------\n')
         try:
@@ -24,10 +26,11 @@ def menu_aquatank1():
 def menu_aquatank2():
     while True:
         try:
+            #Adicionar a API.json para mandar os dados dos sensores.
             print('----------------------------------------------')
             print('                  \033[34mAquatank\033[m                ')
             print('----------------------------------------------\n')
-            print('1 - Ver a última atualização do Arduino')
+            print('1 - Ver a última atualização do Arduino') 
             print('2 - Suporte especializado')
             print('3 - Mostrar todas as operações realizadas')
             print('4 - Encerrar o programa\n')
@@ -39,15 +42,12 @@ def menu_aquatank2():
             match escolha_menu2:
                 case 1: 
                     print("última atualização dos componentes e do arduino da Aquatank:") 
-                    print("                    --                      ")
-                    print("BlackBoard UNO R3 - ROBODORE")  
+                    print("                    --                      ") 
                     print("Placa DOIT ESP32 (Bluetooth e Wifi)")
                     print("Sensor Nivel Lateral Água Arduino - Tipo Boia")
-                    print("Displey Lcd 1602 16x2")
                     print("Módulo Sensor de Luz (ldr)")
-                    print("Led RGB")
-                    print("Buzzer Arduíno")
-                    print("Sensor de Qualidade do Ar - C02")
+                    print("Sensor de Qualidade do Ar - C02 e TVOC")
+                    print("Sensor de Temperatura e Umidade - DHT11")
                     print("                    --                      \n")
                     lista.append('Ver a última atualização do Arduino')
                 case 2:
@@ -119,39 +119,50 @@ while True:
         time.sleep(1)
 
         email_valido = False
-        senha_valida = False
+        senha_valida = False  
+        
+        if os.path.exists('cadastro.json'):                                 
+            with open('cadastro.json', 'r', encoding='utf-8') as arquivo:   
+                lista = json.load(arquivo) 
 
-        while not (email_valido and senha_valida):
+        else:
+            lista = []                
             nome = input('Digite o seu nome: ')
             email = input('Informe seu e-mail: ')
             senha = input('Digite sua senha(8 caracteres): ')
+            cadastro = {'nome': nome, 'e-mail': email, 'senha': senha}                  
+            lista.append(cadastro)                                                   
+        
+            with open('cadastro.json', 'w', encoding='utf-8') as arquivo:           
+                json.dump(lista, arquivo, indent=4, ensure_ascii=False)
+            
 
-            email_valido = validar_email(email)
-            senha_valida = validar_senha(senha)
+                email_valido = validar_email(email)
+                senha_valida = validar_senha(senha)
 
-            if not email_valido and not senha_valida:
-                print("\n\033[31mEmail e senha inválidos! Tente novamente!\033[m\n")
-            elif not email_valido:
-                print("\n\033[31mEmail inválido! Tente novamente!\033[m\n")
-            elif not senha_valida:    
-                print("\n\033[31mSenha inválida! Tente novamente!\033[m\n")
+                if not email_valido and not senha_valida:
+                    print("\n\033[31mEmail e senha inválidos! Tente novamente!\033[m\n")
+                elif not email_valido:
+                    print("\n\033[31mEmail inválido! Tente novamente!\033[m\n")
+                elif not senha_valida:    
+                    print("\n\033[31mSenha inválida! Tente novamente!\033[m\n")
      
-        print(f'\nOlá! Poderia confirmar se está certo seu e-mail: {email}\n')
+            #     print(f'\nOlá! Poderia confirmar se está certo seu e-mail: {email}\n')
                 
-        confirmacao = input('Digite (sim/não): ')
-        if confirmacao == "s" or confirmacao == "sim" or confirmacao == "Sim" or confirmacao == "S":
+            # confirmacao = input('Digite (sim/não): ')
+            # if confirmacao == "s" or confirmacao == "sim" or confirmacao == "Sim" or confirmacao == "S":
 
-            if '@' in email and len(senha)>=8:
-                print("\n\033[32mCadastro realizado com sucesso!\033[m\n")
-                print(f"Seja bem vindo {nome}!\n")
-                cadastro_feito = 1
-                lista.append('Cadastro no site da Aquatank')
-                retorno = menu_aquatank2()
-                if retorno == True:
-                    break     
-        else:
-            print()
-            print("\033[31mTente outra vez mais tarde!\033[m\n")  
+            #     if '@' in email and len(senha)>=8:
+            #         print("\n\033[32mCadastro realizado com sucesso!\033[m\n")
+            #         print(f"Seja bem vindo {nome}!\n")
+            #         cadastro_feito = 1
+            #         lista.append('Cadastro no site da Aquatank')
+            #         retorno = menu_aquatank2()
+            #         if retorno == True:
+            #             break     
+            # else:
+            #     print()
+            #     print("\033[31mTente outra vez mais tarde!\033[m\n")  
 
     elif escolha_menu1 == 2:
         current_time = datetime.datetime.now()
