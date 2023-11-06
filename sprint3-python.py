@@ -74,7 +74,9 @@ def menu_aquatank2():
                         escolha_sensor = int(input("Escolha o sensor (1-6): "))
                         quantidade_leituras = int(input("Digite a quantidade de leituras desejada (max: 50): "))
                     except ValueError:
+                        print()
                         print("Opção inválida. Por favor, insira um número válido.")
+                        print()
                         continue
                     
                     if escolha_sensor < 1 or escolha_sensor > 6:
@@ -132,7 +134,7 @@ def menu_aquatank2():
                                 unidade_sensor = "%"
 
                             print()
-                            print(f"Últimas {quantidade_leituras} leituras de {sensor_nome_dash}:")
+                            print(f"\033[34mÚltimas {quantidade_leituras} leituras de {sensor_nome_dash}:\033[m")
                             print()
                             
                             for value in sensor_values[-quantidade_leituras:]:
