@@ -47,7 +47,7 @@ def menu_aquatank2():
             print('----------------------------------------------')
             print('                  \033[34mAquatank\033[m                ')
             print('----------------------------------------------\n')
-            print('1 - Ver a última atualização do Arduino')
+            print('1 - Conferir os componentes da Aquatank')
             print('2 - Ver dashboard')
             print('3 - Suporte especializado - dúvidas e perguntas')
             print('4 - Mostrar todas as operações realizadas')
@@ -59,7 +59,7 @@ def menu_aquatank2():
         
             match int(escolha_menu2):
                 case 1: 
-                    print("última atualização dos componentes eletrônicos da Aquatank:") 
+                    print("Últimos componentes da Aquatank:") 
                     print("                    --                      ") 
                     print("Placa DOIT ESP32 (Bluetooth e Wifi)")
                     print("Sensor Nivel Lateral Água Arduino - Tipo Boia")
@@ -67,7 +67,7 @@ def menu_aquatank2():
                     print("Sensor de Qualidade do Ar - C02 e TVOC")
                     print("Sensor de Temperatura e Umidade - DHT11")
                     print("                    --                      \n")
-                    lista.append('Ver a última atualização do Arduino')
+                    lista.append('Conferir os componentes da Aquatank')
                 case 2:
                     print('----------------------------------------------')
                     print('                  \033[34mAquatank\033[m                ')
@@ -243,9 +243,9 @@ while True:
                 break
             else:
                 if not email_valido and not senha_valida:
-                    print("\033[31mEmail e senha inválidos! Tente novamente!\033[m\n")
+                    print("\033[31mE-mail e senha inválidos! Tente novamente!\033[m\n")
                 elif not email_valido:
-                    print("\033[31mEmail inválido! Certifique-se de usar um formato de email válido.\033[m\n")
+                    print("\033[31mE-mail inválido! Certifique-se de usar um formato de e-mail válido.\033[m\n")
                 elif not senha_valida:
                     print("\033[31mSenha inválida! A senha deve ter pelo menos 8 caracteres.\033[m\n")
 
@@ -257,7 +257,7 @@ while True:
                     email_existente = True
 
             if email_existente == True:
-                print("\n\033[31mEste email já está cadastrado! Tente com um email diferente.\033[m")
+                print("\n\033[31mEste e-mail já está cadastrado! Tente com um e-mail diferente.\033[m")
                 print()
             else:
                 cadastro = {'nome': nome, 'e-mail': email, 'senha': senha}
@@ -274,38 +274,49 @@ while True:
         current_time = datetime.now()
         print("Hora atual:", current_time.strftime("%H:%M:%S"))
         time.sleep(1)
-        email_valido = False
-        senha_valida = False
-        while not (email_valido and senha_valida):
-            email = input('Informe seu e-mail: ')
-            senha = input('Digite sua senha(8 caracteres): ')
 
-            email_valido = validar_email(email)
-            senha_valida = validar_senha(senha)
-
-            if not email_valido and not senha_valida:
-                print("\n\033[31mEmail e senha inválidos! Tente novamente!\033[m\n")
-            elif not email_valido:
-                print("\n\033[31mEmail inválido! Tente novamente!\033[m\n")
-            elif not senha_valida:    
-                print("\n\033[31mSenha inválida! Tente novamente!\033[m\n")
-
-        if'@' in email and len(senha)>=8:
-            print("\nVerificando sua conta...")
-            for i in range(5):
-                i = "."
-                print(i)
-            print("Sincronizando com a sua conta...")
-            for i in range(5):
-                i = "."
-                print(i)
-            print("\n\033[32mSeja bem-vindo ao Aquatank!\033[m\n")
-            login_feito = 1
-            lista.append('Login no site da Aquatank.')
-            retorno = menu_aquatank2()
-            if retorno == True:
-                break
+        while True:
+                email = input('Informe seu e-mail: ')
+                senha = input('Digite sua senha(8 caracteres): ')
             
+                email_valido = validar_email(email)
+                senha_valida = validar_senha(senha)
+
+                if email_valido and senha_valida:
+                    break
+                else:
+                    if not email_valido and not senha_valida:
+                        print("\n\033[31mE-mail e senha inválidos! Tente novamente!\033[m\n")
+                    elif not email_valido:
+                        print("\n\033[31mE-mail inválido! Tente novamente!\033[m\n")
+                    elif not senha_valida:    
+                        print("\n\033[31mSenha inválida! Tente novamente!\033[m\n")
+
+        email_existente = False
+        senha_existente = False
+        with open('cadastro.json', 'r', encoding='utf-8') as arquivo:
+                lista_cadastro = json.load(arquivo)
+                if'@' in email and len(senha)>=8:
+                    for cadastro_existente in lista_cadastro:
+                        if cadastro_existente['e-mail'] == email and cadastro_existente['senha'] == senha:
+                            email_existente = True
+                            senha_existente = True
+                if email_existente == True and senha_existente == True:
+                    for i in range(5):
+                        i = "."
+                        print(i)
+                    print("Sincronizando com a sua conta...")
+                    for i in range(5):
+                        i = "."
+                        print(i)
+                    print("\n\033[32mSeja bem-vindo ao Aquatank!\033[m\n")
+                    login_feito = 1
+                    lista.append('Login no site da Aquatank.')
+                    retorno = menu_aquatank2()
+                    if retorno == True:
+                        break
+                else:
+                    print("\n\033[31mOs dados não corresponderam com o do cadastro feito!\033[m\n")
     elif escolha_menu1 == 3:
         break
     else:
