@@ -235,21 +235,23 @@ while True:
                     print("\033[31mSenha inválida! A senha deve ter pelo menos 8 caracteres.\033[m\n")
 
         email_existente = False
-        for cadastro_existente in lista_cadastro:
-            if cadastro_existente['e-mail'] == email:
-                email_existente = True
+        with open('cadastro.json', 'r', encoding='utf-8') as arquivo:
+            lista_cadastro = json.load(arquivo)
+            for cadastro_existente in lista_cadastro:
+                if cadastro_existente['e-mail'] == email:
+                    email_existente = True
 
-        if email_existente:
-            print("\n\033[31mEste email já está cadastrado! Tente com um email diferente.\033[m")
-        else:
-            cadastro = {'nome': nome, 'e-mail': email, 'senha': senha}
-            lista.append(cadastro)
+            if email_existente == True:
+                print("\n\033[31mEste email já está cadastrado! Tente com um email diferente.\033[m")
+            else:
+                cadastro = {'nome': nome, 'e-mail': email, 'senha': senha}
+                lista_cadastro.append(cadastro)
 
-            try:
-                with open('cadastro.json', 'w', encoding='utf-8') as arquivo:
-                    json.dump(lista, arquivo, indent=4, ensure_ascii=False)
-            except IOError:
-                print("\n\033[31mErro ao salvar o cadastro. Por favor, tente novamente.\033[m")
+        try:
+            with open('cadastro.json', 'w', encoding='utf-8') as arquivo:
+                json.dump(lista_cadastro, arquivo, indent=4, ensure_ascii=False)
+        except IOError:
+            print("\n\033[31mErro ao salvar o cadastro. Por favor, tente novamente.\033[m")
 
     elif escolha_menu1 == 2:
         current_time = datetime.now()
