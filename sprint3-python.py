@@ -228,9 +228,9 @@ while True:
                 break
             else:
                 if not email_valido and not senha_valida:
-                    print("\033[31mEmail e senha inválidos! Tente novamente!\033[m\n")
+                    print("\033[31mE-mail e senha inválidos! Tente novamente!\033[m\n")
                 elif not email_valido:
-                    print("\033[31mEmail inválido! Certifique-se de usar um formato de email válido.\033[m\n")
+                    print("\033[31mE-mail inválido! Certifique-se de usar um formato de e-mail válido.\033[m\n")
                 elif not senha_valida:
                     print("\033[31mSenha inválida! A senha deve ter pelo menos 8 caracteres.\033[m\n")
 
@@ -242,7 +242,7 @@ while True:
                     email_existente = True
 
             if email_existente == True:
-                print("\n\033[31mEste email já está cadastrado! Tente com um email diferente.\033[m")
+                print("\n\033[31mEste e-mail já está cadastrado! Tente com um e-mail diferente.\033[m")
                 print()
             else:
                 cadastro = {'nome': nome, 'e-mail': email, 'senha': senha}
@@ -271,9 +271,9 @@ while True:
                     break
                 else:
                     if not email_valido and not senha_valida:
-                        print("\n\033[31mEmail e senha inválidos! Tente novamente!\033[m\n")
+                        print("\n\033[31mE-mail e senha inválidos! Tente novamente!\033[m\n")
                     elif not email_valido:
-                        print("\n\033[31mEmail inválido! Tente novamente!\033[m\n")
+                        print("\n\033[31mE-mail inválido! Tente novamente!\033[m\n")
                     elif not senha_valida:    
                         print("\n\033[31mSenha inválida! Tente novamente!\033[m\n")
 
