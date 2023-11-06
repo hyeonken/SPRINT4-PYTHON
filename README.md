@@ -12,7 +12,6 @@ Inscreva-se em nosso formulário para conhecer a iniciativa antes de todos 🚀
 
 # Features Implementadas:
 Melhora na área de cadastro e de login (mais funcionalidades e implementação do arquivo json);
-Adicinado um link de Id para iniciar o sistema Aquatank;
 Visualização do Dashboard com o arquivo json;
 Mostrar a última atualização do arduino (atualizada);
 Inclusão de um suporte especializado;
