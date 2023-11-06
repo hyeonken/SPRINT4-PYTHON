@@ -1,9 +1,9 @@
 from datetime import datetime
 import time
 import json
-import os
 
 lista = []
+lista_cadastro = []
 cadastro_feito = 0
 login_feito = 0
 dicionario = {}
@@ -32,7 +32,6 @@ def menu_aquatank1():
 def menu_aquatank2():
     while True:
         try:
-            #Adicionar a API.json para mandar os dados dos sensores.
             print('----------------------------------------------')
             print('                  \033[34mAquatank\033[m                ')
             print('----------------------------------------------\n')
@@ -48,7 +47,7 @@ def menu_aquatank2():
         
             match escolha_menu2:
                 case 1: 
-                    print("última atualização dos componentes e do arduino da Aquatank:") 
+                    print("última atualização dos componentes eletrônicos da Aquatank:") 
                     print("                    --                      ") 
                     print("Placa DOIT ESP32 (Bluetooth e Wifi)")
                     print("Sensor Nivel Lateral Água Arduino - Tipo Boia")
@@ -236,7 +235,7 @@ while True:
                     print("\033[31mSenha inválida! A senha deve ter pelo menos 8 caracteres.\033[m\n")
 
         email_existente = False
-        for cadastro_existente in lista:
+        for cadastro_existente in lista_cadastro:
             if cadastro_existente['e-mail'] == email:
                 email_existente = True
 
@@ -272,7 +271,6 @@ while True:
             elif not senha_valida:    
                 print("\n\033[31mSenha inválida! Tente novamente!\033[m\n")
 
-        #Chamar para ele voltar para cá.
         if'@' in email and len(senha)>=8:
             print("\nVerificando sua conta...")
             for i in range(5):
