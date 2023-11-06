@@ -70,10 +70,25 @@ def menu_aquatank2():
                     print("5 - Umidade")
                     print("6 - Luminosidade")
                     print()
-                    escolha_sensor = int(input("Escolha o sensor (1-6): "))
-
-                    quantidade_leituras = int(input("Digite a quantidade de leituras desejada (max: 50): "))
-
+                    try:
+                        escolha_sensor = int(input("Escolha o sensor (1-6): "))
+                        quantidade_leituras = int(input("Digite a quantidade de leituras desejada (max: 50): "))
+                    except ValueError:
+                        print("Opção inválida. Por favor, insira um número válido.")
+                        continue
+                    
+                    if escolha_sensor < 1 or escolha_sensor > 6:
+                        print()
+                        print("Sensor inválido. Por favor, escolha uma opção de sensor válida.")
+                        print()
+                        continue
+                    
+                    if quantidade_leituras > 50:
+                        print()
+                        print("A quantidade de leituras não pode ser maior que 50.")
+                        print()
+                        continue
+                    
                     with open('dashboard.json', 'r', encoding='utf-8') as arquivo:
                         dados = json.load(arquivo)
                         
