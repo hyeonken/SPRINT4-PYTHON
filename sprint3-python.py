@@ -47,7 +47,7 @@ def menu_aquatank2():
         
             match escolha_menu2:
                 case 1: 
-                    print("última atualização dos componentes e do arduino da Aquatank:") 
+                    print("última atualização dos componentes eletrônicos da Aquatank:") 
                     print("                    --                      ") 
                     print("Placa DOIT ESP32 (Bluetooth e Wifi)")
                     print("Sensor Nivel Lateral Água Arduino - Tipo Boia")
