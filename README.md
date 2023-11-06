@@ -1,5 +1,5 @@
-# Sprint 3 - Python:
-Repositórios referente a terceira sprint da challenge proposto pela FIAP em 2023.
+# Sprint 4 - Python:
+Repositórios referente a quarta sprint da challenge proposto pela FIAP em 2023.
 
 --
 
@@ -11,12 +11,12 @@ Inscreva-se em nosso formulário para conhecer a iniciativa antes de todos 🚀
 --
 
 # Features Implementadas:
-Melhora na área de cadastro (mais funcionalidades);
-Adicinado um link de Id para iniciar o sitema Aquatank;
-Mostrar a última atualização do arduino;
+Melhora na área de cadastro e de login (mais funcionalidades e implementação do arquivo json);
+Visualização do Dashboard com o arquivo json;
+Mostrar a última atualização do arduino (atualizada);
 Inclusão de um suporte especializado;
 Opção de ver todas as ações do usuário percorrendo o menu e dando a ele a escolha de finalizar o programa ou continuar acessando o menu;
-Foi inserido dentro do menu uma opção de encerrar o programa.
+Foi inserido dentro de ambos menus uma opção de encerrar o programa.
 
 --
 
@@ -24,10 +24,10 @@ Foi inserido dentro do menu uma opção de encerrar o programa.
 
 ⚠ **Atenção! Esse grupo possui integrantes em salas diversas** ⚠
 
-| Aluno  | Rm |  Turma |
-| ----------------- | ------------- |---------|
-| Gustavo Cristiano | 551924  |1ESPF|
-| Luna Gouvea  | 550836  |1ESPV|
-| Rony Ken Nagai  | 551549  |1ESPF|
-| Pedro P. Santos| 552047  |1ESPF|
-| Tomáz V Carballo | 551417  |1ESPF|
+|       Aluno       |     Rm     |   Turma   |
+| ----------------- | ---------- | --------- |
+| Gustavo Cristiano |   551924   |   1ESPF   |
+| Luna Gouvea       |   550836   |   1ESPV   |
+| Pedro P. Santos   |   552047   |   1ESPF   |
+| Rony Ken Nagai    |   551549   |   1ESPF   |
+| Tomáz V. Carballo |   551417   |   1ESPF   |

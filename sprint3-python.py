@@ -106,7 +106,7 @@ def menu_aquatank2():
                 case _:
                     print("\033[31mError!! Número inválido!\033[m \n")
         except ValueError:
-            print("\033[31mDigite um número inteiro!\033[m\n")        
+            print("\033[31mDigite um número inteiro!\033[m\n")                
 
 def validar_email(email):
     # Aqui você pode adicionar sua lógica de validação de email
