@@ -26,10 +26,12 @@ def menu_aquatank1():
         print('----------------------------------------------\n')
         try:
             escolha_menu1 = int(input("Escolha uma dessas duas opções: "))
-            print()
+            if escolha_menu1 >= 1 and escolha_menu1 <= 4:
+                return escolha_menu1
+            else:
+                raise ValueError
         except ValueError:
-            print("\033[31mDigite um número inteiro!\033[m\n")   
-        return escolha_menu1
+            print("\n\033[31mDigite um número inteiro entre 1 e 4!\033[m\n")   
     
 def validar_email(email):
     if "@" in email and "." in email:
@@ -233,21 +235,16 @@ def menu_aquatank2():
                             print(f'\n\033[33mObrigado por usar nossos serviços {dic["nome"]}!\033[m\n')
                     return True
                 case _:
-                    print("\033[31mError!! Número inválido!\033[m \n")
+                    print("\n\033[31mError!! Número inválido!\033[m \n")
         except ValueError:
-            print("\033[31mDigite um número inteiro!\033[m\n")                
-
-
-nome = ""
-email_valido = False
-senha_valida = False
+            print("\n\033[31mDigite um número inteiro!\033[m\n")                
 
 while True:
     escolha_menu1 = menu_aquatank1() 
 
     if escolha_menu1 == 1:
         current_time = datetime.now()
-        print("Hora atual:", current_time.strftime("%H:%M:%S"))
+        print(f"\nHora atual: {current_time.strftime('%H:%M:%S')}\n")
         time.sleep(1)
 
         while True:
@@ -295,7 +292,7 @@ while True:
 
     elif escolha_menu1 == 2:
         current_time = datetime.now()
-        print("Hora atual:", current_time.strftime("%H:%M:%S"))
+        print(f"\nHora atual: {current_time.strftime('%H:%M:%S')}\n")
         time.sleep(1)
 
         while True:
@@ -376,5 +373,3 @@ while True:
 
     elif escolha_menu1 == 4:
         break
-    else:
-        print("\033[31mError!! Número inválido!\033[m \n")

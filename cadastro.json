@@ -23,5 +23,20 @@
         "nome": "g",
         "e-mail": "g@gmail.com",
         "senha": "12345678"
+    },
+    {
+        "nome": "asldadsa",
+        "e-mail": "asda@gmail.com",
+        "senha": "1232312321321"
+    },
+    {
+        "nome": "aaaaa",
+        "e-mail": "aadsa@gmail.com",
+        "senha": "12345678"
+    },
+    {
+        "nome": "bbbbb",
+        "e-mail": "bads@gmail.com",
+        "senha": "123456789"
     }
 ]
