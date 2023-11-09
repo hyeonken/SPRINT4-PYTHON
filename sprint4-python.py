@@ -3,6 +3,10 @@ import time
 import json
 import os
 
+CADASTRO_JSON = 'cadastro.json'
+DASHBOARD_JSON = 'dashboard.json'
+DUVIDAS_JSON = 'duvidas.json'
+
 lista = []
 lista_cadastro = []
 cadastro_feito = 0
@@ -36,30 +40,32 @@ def menu_aquatank1():
 def validar_email(email):
     if "@" in email and "." in email:
         return True
-    return False
+    else:
+        return False
 
 # Função para validar a senha
 def validar_senha(senha):
     if len(senha) >= 8:
         return True
-    return False
+    else:
+        return False
 
 def menu_aquatank2():
     while True:
         try:
-            with open('cadastro.json', 'r', encoding='utf-8') as arquivo:
+            with open(CADASTRO_JSON, 'r', encoding='utf-8') as arquivo:
                 dados_cliente = json.load(arquivo)
             print('----------------------------------------------')
             print('                  \033[34mAquatank\033[m                ')
             print('----------------------------------------------\n')
             for dic in dados_cliente:
                     if dic['e-mail'] == email:
-                        print(f'\033[33mSeja bem vindo {dic["nome"]}!\033[m\n')
+                        print(f'\033[33mSeja bem vindo(a) {dic["nome"]}!\033[m\n')
             print('1 - Ver a última atualização do Arduino')
             print('2 - Ver dashboard')
             print('3 - Suporte especializado - dúvidas e perguntas')
             print('4 - Mostrar todas as operações realizadas')
-            print('5 - Encerrar o programa\n')
+            print('5 - Log-out\n')
             print('----------------------------------------------\n')
 
             escolha_menu2 = input("Escolha uma dessas duas opções: ")
@@ -109,7 +115,7 @@ def menu_aquatank2():
                         print()
                         continue
                     
-                    with open('dashboard.json', 'r', encoding='utf-8') as arquivo:
+                    with open(DASHBOARD_JSON, 'r', encoding='utf-8') as arquivo:
                         dados = json.load(arquivo)
                         
                         for sensor_data in dados:
@@ -163,8 +169,8 @@ def menu_aquatank2():
                                 print()
                         lista.append('Ver dashboard')
                 case 3:
-                    if os.path.exists('duvidas.json'):
-                        with open('duvidas.json', 'r', encoding='utf-8') as arquivoduvidas:
+                    if os.path.exists(DUVIDAS_JSON):
+                        with open(DUVIDAS_JSON, 'r', encoding='utf-8') as arquivoduvidas:
                             duvidas_existente = json.load(arquivoduvidas)
                     else:
                         duvidas_existente = []
@@ -192,7 +198,7 @@ def menu_aquatank2():
                                     duivida_input = {f'Duvida {contador}': duvida}
 
                                     duvidas_existente.append(duivida_input)
-                                    with open('duvidas.json', 'w', encoding='utf-8') as arquivoduvidas:
+                                    with open(DUVIDAS_JSON, 'w', encoding='utf-8') as arquivoduvidas:
                                         json.dump(duvidas_existente, arquivoduvidas, indent=4, ensure_ascii=False)
                                 
                                 print("\nAgradecemos pelas dúvidas. Elas serão analisadas e retornadas em breve no seu e-mail...\n")
@@ -222,7 +228,7 @@ def menu_aquatank2():
                         if resposta2.isdigit():
                             raise ValueError
                         elif resposta2 == "não" or resposta2 == "n" or resposta2 == "nao":
-                            print("Obrigado pela compreensão! Te esperamos em breve novamente!\n")
+                            print(f'\033[33mObrigado pela compreensão! Te esperamos em breve novamente!\033[m\n')
                             for dic in dados_cliente:
                                 if dic['e-mail'] == email:
                                     print(f'\033[33mObrigado por usar nossos serviços {dic["nome"]}!\033[m\n')
@@ -241,10 +247,32 @@ def menu_aquatank2():
 
 while True:
     escolha_menu1 = menu_aquatank1() 
+    try:
+        # Verifica o tamanho do arquivo
+        tamanho_arquivo = os.path.getsize('cadastro.json')
+
+        if tamanho_arquivo > 0:
+            with open(CADASTRO_JSON, 'r', encoding='utf-8') as arquivo:
+                lista_cadastro = json.load(arquivo)
+            with open(CADASTRO_JSON, 'r', encoding='utf-8') as arquivo:
+                lista_cadastro_existentes = json.load(arquivo)
+        else:
+            # O arquivo está vazio, inicializa a lista como vazia
+            lista_cadastro = []
+            lista_cadastro_existentes = []
+    except FileNotFoundError:
+        # O arquivo não foi encontrado
+        lista_cadastro = []
+        lista_cadastro_existentes = []
+    except json.JSONDecodeError:
+        # O arquivo existe, mas não pode ser decodificado como JSON
+        print("\n\033[31mErro ao ler o arquivo JSON. O arquivo pode estar corrompido.\033[m")
+        lista_cadastro = []
+        lista_cadastro_existentes = []
 
     if escolha_menu1 == 1:
         current_time = datetime.now()
-        print(f"\nHora atual: {current_time.strftime('%H:%M:%S')}\n")
+        print(f"\nHora atual: {current_time.strftime('%H:%M:%S')}")
         time.sleep(1)
 
         while True:
@@ -255,121 +283,111 @@ while True:
             email_valido = validar_email(email)
             senha_valida = validar_senha(senha)
 
-            if email_valido and senha_valida:
-                break
+            # if email_valido and senha_valida:
+            #     break
+            # else:
+            if not email_valido and not senha_valida:
+                print("\n\033[31mEmail e senha inválidos! Tente novamente!\033[m")
+            elif not email_valido:
+                print("\n\033[31mEmail inválido! Certifique-se de usar um formato de email válido.\033[m")
+            elif not senha_valida:
+                print("\n\033[31mSenha inválida! A senha deve ter pelo menos 8 caracteres.\033[m")
             else:
-                if not email_valido and not senha_valida:
-                    print("\033[31mEmail e senha inválidos! Tente novamente!\033[m\n")
-                elif not email_valido:
-                    print("\033[31mEmail inválido! Certifique-se de usar um formato de email válido.\033[m\n")
-                elif not senha_valida:
-                    print("\033[31mSenha inválida! A senha deve ter pelo menos 8 caracteres.\033[m\n")
+                email_existente = False
+                for cadastro_existente in lista_cadastro:
+                    if cadastro_existente['e-mail'] == email:
+                        email_existente = True
 
-        email_existente = False
-        if os.path.exists('cadastro.json'):
-            with open('cadastro.json', 'r', encoding='utf-8') as arquivo:
-                lista_cadastro = json.load(arquivo)
-        else:
-            lista_cadastro = []
-        for cadastro_existente in lista_cadastro:
-            if cadastro_existente['e-mail'] == email:
-                email_existente = True
-
-        if email_existente == True:
-            print("\n\033[31mEste email já está cadastrado! Tente com um email diferente.\033[m")
-            print()
-        else:
-            cadastro = {'nome': nome, 'e-mail': email, 'senha': senha}
-            lista_cadastro.append(cadastro)
-            print('\n\033[32mCadastro realizado com sucesso!\033[m\n')
-            lista.append("Cadastro no site do Aquatank")
-        try:
-            with open('cadastro.json', 'w', encoding='utf-8') as arquivo:
-                json.dump(lista_cadastro, arquivo, indent=4, ensure_ascii=False)
-        except IOError:
-            print("\n\033[31mErro ao salvar o cadastro. Por favor, tente novamente.\033[m")
-            print()
+                if email_existente == True:
+                    print("\n\033[31mEste email já está cadastrado! Tente com um email diferente.\033[m")
+                else:
+                    cadastro = {'nome': nome, 'e-mail': email, 'senha': senha}
+                    lista_cadastro.append(cadastro)
+                    print('\n\033[32mCadastro realizado com sucesso!\033[m\n')
+                    lista.append("Cadastro no site do Aquatank")
+                try:
+                    with open(CADASTRO_JSON, 'w', encoding='utf-8') as arquivo:
+                        json.dump(lista_cadastro, arquivo, indent=4, ensure_ascii=False)
+                    break
+                except IOError:
+                    print("\n\033[31mErro ao salvar o cadastro. Por favor, tente novamente.\033[m")
 
     elif escolha_menu1 == 2:
         current_time = datetime.now()
         print(f"\nHora atual: {current_time.strftime('%H:%M:%S')}\n")
         time.sleep(1)
 
-        while True:
-                email = input('Informe seu e-mail: ')
-                senha = input('Digite sua senha(8 caracteres): ')
-            
-                email_valido = validar_email(email)
-                senha_valida = validar_senha(senha)
+        if os.path.exists(CADASTRO_JSON) and lista_cadastro: 
+            while True:
+                    email = input('Informe seu e-mail: ')
+                    senha = input('Digite sua senha(8 caracteres): ')
+                
+                    email_valido = validar_email(email)
+                    senha_valida = validar_senha(senha)
 
-                if email_valido and senha_valida:
-                    break
-                else:
-                    if not email_valido and not senha_valida:
-                        print("\n\033[31mE-mail e senha inválidos! Tente novamente!\033[m\n")
-                    elif not email_valido:
-                        print("\n\033[31mE-mail inválido! Tente novamente!\033[m\n")
-                    elif not senha_valida:    
-                        print("\n\033[31mSenha inválida! Tente novamente!\033[m\n")
+                    if email_valido and senha_valida:
+                        break
+                    else:
+                        if not email_valido and not senha_valida:
+                            print("\n\033[31mE-mail e senha inválidos! Tente novamente!\033[m\n")
+                        elif not email_valido:
+                            print("\n\033[31mE-mail inválido! Tente novamente!\033[m\n")
+                        elif not senha_valida:    
+                            print("\n\033[31mSenha inválida! Tente novamente!\033[m\n")
 
-        email_existente = False
-        senha_existente = False
-        if os.path.exists('cadastro.json'): 
-            with open('cadastro.json', 'r', encoding='utf-8') as arquivo:
-                    lista_cadastro = json.load(arquivo)
+            if email_valido and senha_valida:
+                for cadastro_existente in lista_cadastro:
+                    if cadastro_existente['e-mail'] == email and cadastro_existente['senha'] == senha:
+                        for i in range(5):
+                            i = "."
+                            print(i)
+                        print("Sincronizando com a sua conta...")
+                        for i in range(5):
+                            i = "."
+                            print(i)
+                        print("\n\033[32mSeja bem-vindo ao Aquatank!\033[m\n")
+                        login_feito = 1
+                        lista.append('Login no site da Aquatank')
+                        retorno = menu_aquatank2()
+                        if retorno == True:
+                            break
+                    else:
+                        print("\n\033[31mOs dados não corresponderam com o do cadastro feito!\033[m\n")
         else:
-            lista_cadastro = []
-        if'@' in email and len(senha)>=8:
-            for cadastro_existente in lista_cadastro:
-                if cadastro_existente['e-mail'] == email and cadastro_existente['senha'] == senha:
-                    email_existente = True
-                    senha_existente = True
-        if email_existente == True and senha_existente == True:
-            for i in range(5):
-                i = "."
-                print(i)
-            print("Sincronizando com a sua conta...")
-            for i in range(5):
-                i = "."
-                print(i)
-            print("\n\033[32mSeja bem-vindo ao Aquatank!\033[m\n")
-            login_feito = 1
-            lista.append('Login no site da Aquatank')
-            retorno = menu_aquatank2()
-            if retorno == True:
-                break
-        else:
-            print("\n\033[31mOs dados não corresponderam com o do cadastro feito!\033[m\n")
+            print('\033[31mNão existe nenhum cadastro no banco de dados!\033[m\n')
     elif escolha_menu1 == 3:
-        teste = True
-        if os.path.exists('cadastro.json'):
-            with open('cadastro.json', 'r', encoding='utf-8') as arquivo:
-                lista_cadastro_existentes = json.load(arquivo)
+        if os.path.exists(CADASTRO_JSON) and lista_cadastro_existentes:
+            teste = True
             while teste:
                 email = input('Informe seu e-mail: ')
                 senha = input('Digite sua senha: ')
 
                 email_valido = validar_email(email)
                 senha_valida = validar_senha(senha)
+                encontrado = False
 
                 if email_valido and senha_valida:
                     for cadastro_existente in lista_cadastro_existentes:
-                        if cadastro_existente['e-mail'] != email and cadastro_existente['senha'] != senha:
-                            print("\n\033[31mE-mail e senha inválidos! Tente novamente!\033[m\n")
-                        elif cadastro_existente['e-mail'] != email and cadastro_existente['senha'] == senha:
-                            print("\n\033[31mE-mail inválido! Tente novamente!\033[m\n")
-                        elif cadastro_existente['e-mail'] == email and cadastro_existente['senha'] != senha:
-                            print("\n\033[31mSenha inválida! Tente novamente!\033[m\n")
-                        else:
+                        if cadastro_existente['e-mail'] == email and cadastro_existente['senha'] == senha:
                             lista_cadastro_existentes.remove(cadastro_existente)
-                            with open('cadastro.json', 'w', encoding='utf-8') as arquivo:
-                                json.dump(lista_cadastro_existentes, arquivo, indent=4, ensure_ascii=False)
-                            print('\n\033[32mCadastro deletado realizado com sucesso!\033[m\n')
                             lista.append('Deletar cadastro')
-                            teste = False
-                            break
+                            try:
+                                with open(CADASTRO_JSON, 'w', encoding='utf-8') as arquivo:
+                                    json.dump(lista_cadastro_existentes, arquivo, indent=4, ensure_ascii=False)
+                                print('\n\033[32mCadastro deletado realizado com sucesso!\033[m\n')
+                                teste = False
+                                encontrado = True
+                                break
+                            except IOError:
+                                print("\n\033[31mErro ao salvar a lista de cadastros. Por favor, tente novamente.\033[m")
+                                print()
+                    if not encontrado:
+                        print("\n\033[31mE-mail e/ou senha inválidos! Tente novamente!\033[m\n")
+                else:
+                    print("\n\033[31mE-mail e/ou senha em formato invalidos! Tente novamente!\033[m\n")
         else:
-            print('\033[31mNão existe nenhum cadastro!\033[m\n')
+            print('\n\033[31mNão existe nenhum cadastro no banco de dados!\033[m\n')
 
     elif escolha_menu1 == 4:
         break
+    
