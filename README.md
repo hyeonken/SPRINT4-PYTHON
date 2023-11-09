@@ -1,14 +1,18 @@
 # Sprint 4 - Python:
-Repositórios referente a quarta sprint da challenge proposto pela FIAP em 2023.
 
---
+Repositório referente ao NEXT em 2023 e a última entrega da Challenge FIAP - Desafios IBM.
 
-# Conheça a iniciativa Aquatank!
-O grupo SoftForge está desenvolvendo um projeto que vai mudar a forma que respiramos nas grandes cidades, com previsão de lançamento para o segundo semestre de 2023!
+---
 
-Inscreva-se em nosso formulário para conhecer a iniciativa antes de todos 🚀
+## Conheça a Iniciativa AquaTank!
 
---
+Bem-vindo ao mundo revolucionário do Grupo SoftForge! Apresentamos com entusiasmo o nosso projeto inovador, o AquaTank, destinado a transformar a atmosfera das grandes cidades.
+
+Imagine uma cápsula de algas inteligente que não só capta o CO2 presente no ar, mas também o converte em oxigênio a cada precioso segundo. O AquaTank não é apenas um projeto; é uma solução visionária que redefine a maneira como respiramos e interagimos com o ambiente urbano.
+
+Junte-se a nós nessa jornada transformadora em direção a cidades mais verdes e respiráveis. O futuro do ar que respiramos começa aqui, com o AquaTank do Grupo SoftForge.
+
+---
 
 # Features Implementadas:
 Melhora na área de cadastro e de login (mais funcionalidades e implementação do arquivo json);
@@ -18,11 +22,11 @@ Inclusão de um suporte especializado (dúvidas armazenadas em arquivo json);
 Opção de ver todas as ações do usuário percorrendo o menu e dando a ele a escolha de finalizar o programa ou continuar acessando o menu;
 Foi inserido dentro de ambos menus uma opção de encerrar o programa.
 
---
+---
 
 # Pessoas desenvolvedoras:
 
-⚠ **Atenção! Esse grupo possui integrantes em salas diversas** ⚠
+⚠ **Atenção! Esse grupo possui integrantes em salas diversas.** ⚠
 
 |       Aluno       |     Rm     |   Turma   |
 | ----------------- | ---------- | --------- |
