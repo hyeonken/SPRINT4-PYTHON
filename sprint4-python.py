@@ -20,8 +20,9 @@ def menu_aquatank1():
         print('                  \033[34mAquatank\033[m                ')
         print('----------------------------------------------\n')
         print('1 - Cadastro no site da Aquatank')
-        print('2 - Login no site da Aquatank') 
-        print('3 - Encerrar o programa\n')
+        print('2 - Login no site da Aquatank')
+        print('3 - Deletar cadastro')
+        print('4 - Encerrar o programa\n')
         print('----------------------------------------------\n')
         try:
             escolha_menu1 = int(input("Escolha uma dessas duas opções: "))
@@ -44,9 +45,14 @@ def validar_senha(senha):
 def menu_aquatank2():
     while True:
         try:
+            with open('cadastro.json', 'r', encoding='utf-8') as arquivo:
+                dados_cliente = json.load(arquivo)
             print('----------------------------------------------')
             print('                  \033[34mAquatank\033[m                ')
             print('----------------------------------------------\n')
+            for dic in dados_cliente:
+                    if dic['e-mail'] == email:
+                        print(f'\033[33mSeja bem vindo {dic["nome"]}!\033[m\n')
             print('1 - Ver a última atualização do Arduino')
             print('2 - Ver dashboard')
             print('3 - Suporte especializado - dúvidas e perguntas')
@@ -55,11 +61,10 @@ def menu_aquatank2():
             print('----------------------------------------------\n')
 
             escolha_menu2 = input("Escolha uma dessas duas opções: ")
-            print()
         
             match int(escolha_menu2):
                 case 1: 
-                    print("última atualização dos componentes eletrônicos da Aquatank:") 
+                    print("\n\033[34múltima atualização dos componentes eletrônicos da Aquatank:\033[m") 
                     print("                    --                      ") 
                     print("Placa DOIT ESP32 (Bluetooth e Wifi)")
                     print("Sensor Nivel Lateral Água Arduino - Tipo Boia")
@@ -86,19 +91,19 @@ def menu_aquatank2():
                         quantidade_leituras = int(input("Digite a quantidade de leituras desejada (max: 50): "))
                     except ValueError:
                         print()
-                        print("Opção inválida. Por favor, insira um número válido.")
+                        print("\033[31mOpção inválida. Por favor, insira um número válido.\033[m")
                         print()
                         continue
                     
                     if escolha_sensor < 1 or escolha_sensor > 6:
                         print()
-                        print("Sensor inválido. Por favor, escolha uma opção de sensor válida.")
+                        print("\033[31mSensor inválido. Por favor, escolha uma opção de sensor válida.\033[m")
                         print()
                         continue
                     
                     if quantidade_leituras > 50:
                         print()
-                        print("A quantidade de leituras não pode ser maior que 50.")
+                        print("\033[31mA quantidade de leituras não pode ser maior que 50.\033[m")
                         print()
                         continue
                     
@@ -132,10 +137,10 @@ def menu_aquatank2():
                                 sensor_nome_dash = "Boia"
                                 unidade_sensor = ""
                             elif sensor_name == 'codois':
-                                sensor_nome_dash = "Co2"
+                                sensor_nome_dash = "CO2"
                                 unidade_sensor = "ppm"
                             elif sensor_name == 'tvoc':
-                                sensor_nome_dash = "Tvoc"
+                                sensor_nome_dash = "TVOC"
                                 unidade_sensor = "µg/m³"
                             elif sensor_name == 'humidity':
                                 sensor_nome_dash = "Umidade"
@@ -167,50 +172,65 @@ def menu_aquatank2():
                     num = None
                     while num is None:
                         try:
-                            num = int(input("Digite a quantidade de dúvidas: "))
-                            if num < 1:
-                                print("Por favor, insira um número positivo.")
+                            num = int(input("Digite a quantidade de dúvidas (0 para sair): "))
+                            if num == 0:
+                                print('\nAgradecemos pela colaboração.\n')
+                                lista.append("Suporte especializado - Não teve nenhuma dúvida")
+                                break
+                            elif num < 1:
+                                print("\n\033[31mPor favor, insira um número positivo.\033[m")
                                 num = None
+                            else:
+                                contador = 0
+                                while contador < num:
+                                    duvida = input(f"Escreva sua {contador + 1}ª dúvida ao lado: ")
+                                    print()
+                                    print(f"{duvida}\n")
+                                    contador += 1
+                                    duivida_input = {f'Duvida {contador}': duvida}
+
+                                    duvidas_existente.append(duivida_input)
+                                    with open('duvidas.json', 'w', encoding='utf-8') as arquivoduvidas:
+                                        json.dump(duvidas_existente, arquivoduvidas, indent=4, ensure_ascii=False)
+                                
+                                print("\nAgradecemos pelas dúvidas. Elas serão analisadas e retornadas em breve no seu e-mail...\n")
+                                lista.append("Suporte especializado - Teve dúvida")
                         except ValueError:
                             print("Digite um número inteiro válido.")
                         print()
-                        contador = 0
-                        while contador < num:
-                            duvida = input(f"Escreva sua {contador + 1}ª dúvida ao lado: ")
-                            print()
-                            print(f"{duvida}\n")
-                            contador += 1
-                            duivida_input = {f'Duvida {contador}': duvida}
-
-                            duvidas_existente.append(duivida_input)
-                            with open('duvidas.json', 'w', encoding='utf-8') as arquivoduvidas:
-                                json.dump(duvidas_existente, arquivoduvidas, indent=4, ensure_ascii=False)
-                        
-                        print("\nAgradecemos pelas dúvidas. Elas serão analisadas e retornadas em breve no seu e-mail...\n")
-                        lista.append("Suporte especializado - Teve dúvida")
-
-                    else:
-                        lista.append("Suporte especializado - Não teve nenhuma dúvida")
-                case 4: 
-                    print()
-                    resposta = input("Deseja ver o resumo de operações realizadas do menu? (sim/não): ").lower()
-                    print()
-                    if resposta == "não" or resposta == "n" or resposta == "nao":
-                        print("Obrigado por utilizar o programa!")   
-                    elif resposta == "sim" or resposta == "s":
-                        print("Resumo das operações realizadas:")
+                case 4:
+                    try:
                         print()
-                        for n in lista:
-                            print(f"\033[34m{n}\033[m")
-                    print()
-                    resposta2 = input("Deseja continuar? (sim/não): ").lower()
-                    print() 
-                    if resposta2 == "não" or resposta2 == "n" or resposta2 == "nao":
-                        print("Obrigado pela compreensão! Te esperamos em breve novamente!\n") 
-                        return True
-                    else:
-                        lista.append("Mostrar todas as operações realizadas")        
+                        resposta = input("Deseja ver o resumo de operações realizadas do menu? (sim/não): ").lower()
+                        print()
+                        if resposta.isdigit():
+                            raise ValueError
+                        elif resposta == "não" or resposta == "n" or resposta == "nao":
+                            print("Obrigado por utilizar o programa!")   
+                        elif resposta == "sim" or resposta == "s":
+                            print("Resumo das operações realizadas:")
+                            print()
+                            for n in lista:
+                                print(f"\033[34m{n}\033[m")
+                            lista.append("Mostrar todas as operações realizadas")
+                        print()
+                        
+                        resposta2 = input("Deseja continuar? (sim/não): ").lower()
+                        print() 
+                        if resposta2.isdigit():
+                            raise ValueError
+                        elif resposta2 == "não" or resposta2 == "n" or resposta2 == "nao":
+                            print("Obrigado pela compreensão! Te esperamos em breve novamente!\n")
+                            for dic in dados_cliente:
+                                if dic['e-mail'] == email:
+                                    print(f'\033[33mObrigado por usar nossos serviços {dic["nome"]}!\033[m\n')
+                            return True
+                    except ValueError:
+                        print('\033[31mDigite apenas sim ou não!\033[m\n')  
                 case 5:
+                    for dic in dados_cliente:
+                        if dic['e-mail'] == email:
+                            print(f'\n\033[33mObrigado por usar nossos serviços {dic["nome"]}!\033[m\n')
                     return True
                 case _:
                     print("\033[31mError!! Número inválido!\033[m \n")
@@ -231,10 +251,9 @@ while True:
         time.sleep(1)
 
         while True:
-            nome = input('Digite o seu nome: ')
+            nome = input('\nDigite o seu nome: ')
             email = input('Informe seu e-mail: ')
             senha = input('Digite sua senha (8 caracteres): ')
-            print()
 
             email_valido = validar_email(email)
             senha_valida = validar_senha(senha)
@@ -265,6 +284,8 @@ while True:
         else:
             cadastro = {'nome': nome, 'e-mail': email, 'senha': senha}
             lista_cadastro.append(cadastro)
+            print('\n\033[32mCadastro realizado com sucesso!\033[m\n')
+            lista.append("Cadastro no site do Aquatank")
         try:
             with open('cadastro.json', 'w', encoding='utf-8') as arquivo:
                 json.dump(lista_cadastro, arquivo, indent=4, ensure_ascii=False)
@@ -316,13 +337,44 @@ while True:
                 print(i)
             print("\n\033[32mSeja bem-vindo ao Aquatank!\033[m\n")
             login_feito = 1
-            lista.append('Login no site da Aquatank.')
+            lista.append('Login no site da Aquatank')
             retorno = menu_aquatank2()
             if retorno == True:
                 break
         else:
             print("\n\033[31mOs dados não corresponderam com o do cadastro feito!\033[m\n")
     elif escolha_menu1 == 3:
+        teste = True
+        if os.path.exists('cadastro.json'):
+            with open('cadastro.json', 'r', encoding='utf-8') as arquivo:
+                lista_cadastro_existentes = json.load(arquivo)
+            while teste:
+                email = input('Informe seu e-mail: ')
+                senha = input('Digite sua senha: ')
+
+                email_valido = validar_email(email)
+                senha_valida = validar_senha(senha)
+
+                if email_valido and senha_valida:
+                    for cadastro_existente in lista_cadastro_existentes:
+                        if cadastro_existente['e-mail'] != email and cadastro_existente['senha'] != senha:
+                            print("\n\033[31mE-mail e senha inválidos! Tente novamente!\033[m\n")
+                        elif cadastro_existente['e-mail'] != email and cadastro_existente['senha'] == senha:
+                            print("\n\033[31mE-mail inválido! Tente novamente!\033[m\n")
+                        elif cadastro_existente['e-mail'] == email and cadastro_existente['senha'] != senha:
+                            print("\n\033[31mSenha inválida! Tente novamente!\033[m\n")
+                        else:
+                            lista_cadastro_existentes.remove(cadastro_existente)
+                            with open('cadastro.json', 'w', encoding='utf-8') as arquivo:
+                                json.dump(lista_cadastro_existentes, arquivo, indent=4, ensure_ascii=False)
+                            print('\n\033[32mCadastro deletado realizado com sucesso!\033[m\n')
+                            lista.append('Deletar cadastro')
+                            teste = False
+                            break
+        else:
+            print('\033[31mNão existe nenhum cadastro!\033[m\n')
+
+    elif escolha_menu1 == 4:
         break
     else:
         print("\033[31mError!! Número inválido!\033[m \n")
