@@ -1,6 +1,6 @@
 # Sprint 4 - Python:
 
-Repositório referente ao NEXT em 2023 e a última entrega da Challenge FIAP - Desafios IBM.
+Repositório referente a última entrega da Challenge FIAP - Desafios IBM.
 
 ---
 
@@ -17,7 +17,7 @@ Junte-se a nós nessa jornada transformadora em direção a cidades mais verdes 
 # Features Implementadas:
 * Melhora na área de cadastro e de login (mais funcionalidades e implementação do arquivo json);
 * Visualização do Dashboard com o arquivo json;
-* Mostrar a última atualização do arduino (atualizada);
+* Mostrar a última atualização do ESP32 (atualizada);
 * Inclusão de um suporte especializado (dúvidas armazenadas em arquivo json);
 * Opção de ver todas as ações do usuário percorrendo o menu e dando a ele a escolha de finalizar o programa ou continuar acessando o menu;
 * Foi inserido dentro do menu logado uma opção para logout e no menu inicial uma opção de encerrar o programa.
