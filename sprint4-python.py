@@ -299,7 +299,7 @@ while True:
                         email_existente = True
 
                 if email_existente == True:
-                    print("\n\033[31mEste email já está cadastrado! Tente com um email diferente.\033[m")
+                    print("\n\033[31mEste email já está cadastrado! Tente com um email diferente.\033[m\n")
                 else:
                     cadastro = {'nome': nome, 'e-mail': email, 'senha': senha}
                     lista_cadastro.append(cadastro)
