@@ -61,7 +61,7 @@ def menu_aquatank2():
             for dic in dados_cliente:
                     if dic['e-mail'] == email:
                         print(f'\033[33mSeja bem vindo(a) {dic["nome"]}!\033[m\n')
-            print('1 - Ver a última atualização do Arduino')
+            print('1 - Ver a última atualização do ESP32')
             print('2 - Ver dashboard')
             print('3 - Suporte especializado - dúvidas e perguntas')
             print('4 - Mostrar todas as operações realizadas')
@@ -75,12 +75,12 @@ def menu_aquatank2():
                     print("\n\033[34múltima atualização dos componentes eletrônicos da Aquatank:\033[m") 
                     print("                    --                      ") 
                     print("Placa DOIT ESP32 (Bluetooth e Wifi)")
-                    print("Sensor Nivel Lateral Água Arduino - Tipo Boia")
+                    print("Sensor Nivel Lateral Água - Tipo Boia")
                     print("Módulo Sensor de Luz (ldr)")
                     print("Sensor de Qualidade do Ar - C02 e TVOC")
                     print("Sensor de Temperatura e Umidade - DHT11")
                     print("                    --                      \n")
-                    lista.append('Ver a última atualização do Arduino')
+                    lista.append('Ver a última atualização do ESP32')
                 case 2:
                     print('----------------------------------------------')
                     print('                  \033[34mAquatank\033[m                ')
