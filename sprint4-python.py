@@ -9,8 +9,6 @@ DUVIDAS_JSON = 'duvidas.json'
 
 lista = []
 lista_cadastro = []
-cadastro_feito = 0
-login_feito = 0
 dicionario = {}
 
 def formatar_data_hora(recv_time):
@@ -19,23 +17,22 @@ def formatar_data_hora(recv_time):
     return data_hora.strftime("%d/%m/%Y, %H:%M:%S")
 
 def menu_aquatank1():
-    if cadastro_feito == 0 or login_feito == 0:
-        print('----------------------------------------------')
-        print('                  \033[34mAquatank\033[m                ')
-        print('----------------------------------------------\n')
-        print('1 - Cadastro no site da Aquatank')
-        print('2 - Login no site da Aquatank')
-        print('3 - Deletar cadastro')
-        print('4 - Encerrar o programa\n')
-        print('----------------------------------------------\n')
-        try:
-            escolha_menu1 = int(input("Escolha uma dessas duas opções: "))
-            if escolha_menu1 >= 1 and escolha_menu1 <= 4:
-                return escolha_menu1
-            else:
-                raise ValueError
-        except ValueError:
-            print("\n\033[31mDigite um número inteiro entre 1 e 4!\033[m\n")   
+    print('----------------------------------------------')
+    print('                  \033[34mAquatank\033[m                ')
+    print('----------------------------------------------\n')
+    print('1 - Cadastro no site da Aquatank')
+    print('2 - Login no site da Aquatank')
+    print('3 - Deletar cadastro')
+    print('4 - Encerrar o programa\n')
+    print('----------------------------------------------\n')
+    try:
+        escolha_menu1 = int(input("Escolha uma dessas duas opções: "))
+        if escolha_menu1 >= 1 and escolha_menu1 <= 4:
+            return escolha_menu1
+        else:
+            raise ValueError
+    except ValueError:
+        print("\n\033[31mDigite um número inteiro entre 1 e 4!\033[m\n")   
     
 def validar_email(email):
     if "@" in email and "." in email:
@@ -318,41 +315,28 @@ while True:
         time.sleep(1)
 
         if os.path.exists(CADASTRO_JSON) and lista_cadastro: 
-            while True:
-                    email = input('Informe seu e-mail: ')
-                    senha = input('Digite sua senha(8 caracteres): ')
-                
-                    email_valido = validar_email(email)
-                    senha_valida = validar_senha(senha)
-
-                    if email_valido and senha_valida:
-                        break
-                    else:
-                        if not email_valido and not senha_valida:
-                            print("\n\033[31mE-mail e senha inválidos! Tente novamente!\033[m\n")
-                        elif not email_valido:
-                            print("\n\033[31mE-mail inválido! Tente novamente!\033[m\n")
-                        elif not senha_valida:    
-                            print("\n\033[31mSenha inválida! Tente novamente!\033[m\n")
+            email = input('Informe seu e-mail: ')
+            senha = input('Digite sua senha(8 caracteres): ')
+            
+            email_valido = validar_email(email)
+            senha_valida = validar_senha(senha)
 
             if email_valido and senha_valida:
                 for cadastro_existente in lista_cadastro:
                     if cadastro_existente['e-mail'] == email and cadastro_existente['senha'] == senha:
-                        for i in range(5):
-                            i = "."
-                            print(i)
+                        print("." * 5)
                         print("Sincronizando com a sua conta...")
-                        for i in range(5):
-                            i = "."
-                            print(i)
+                        print("." * 5)
                         print("\n\033[32mSeja bem-vindo ao Aquatank!\033[m\n")
-                        login_feito = 1
                         lista.append('Login no site da Aquatank')
                         retorno = menu_aquatank2()
                         if retorno == True:
                             break
-                    else:
-                        print("\n\033[31mOs dados não corresponderam com o do cadastro feito!\033[m\n")
+                else:
+                    # This block is executed if the loop completes without a 'break'
+                    print("\n\033[31mOs dados não corresponderam com o do cadastro feito!\033[m\n")
+            else:
+                print("\n\033[31mE-mail ou senha inválidos! Tente novamente!\033[m\n")
         else:
             print('\033[31mNão existe nenhum cadastro no banco de dados!\033[m\n')
     elif escolha_menu1 == 3:
